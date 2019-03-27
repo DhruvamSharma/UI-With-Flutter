@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttery_bank/src/ui/home_screen/bank_card_list.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,9 +10,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Fluttery Bank',
       theme: ThemeData(
-        // This is the theme of your application.
-        primarySwatch: Colors.teal,
-      ),
+          // This is the theme of your application.
+          primarySwatch: Colors.amber,
+          fontFamily: 'NotoSans'),
       home: MyHomePage(title: 'Fluttery Bank'),
     );
   }
@@ -47,12 +48,28 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(''),
         elevation: 0,
       ),
-       // This trailing comma makes auto-formatting nicer for build methods.
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            backgroundColor: Colors.transparent,
+            title: Text(
+              'Your bank. Safer.',
+              style: TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.w100,
+              ),
+            ),
+          ),
+          BankCardList(),
+        ],
+      ),
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
