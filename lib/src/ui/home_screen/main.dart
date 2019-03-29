@@ -10,9 +10,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Fluttery Bank',
       theme: ThemeData(
-          // This is the theme of your application.
-          primarySwatch: Colors.amber,
-          fontFamily: 'NotoSans'),
+        // This is the theme of your application.
+        primarySwatch: Colors.amber,
+        fontFamily: 'NotoSans',
+        brightness: Brightness.dark,
+        primaryTextTheme: TextTheme(
+          title: TextStyle(
+            color: Colors.white
+          )
+        ),
+      ),
       home: MyHomePage(title: 'Fluttery Bank'),
     );
   }
@@ -46,28 +53,62 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(''),
-        elevation: 0,
-      ),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            backgroundColor: Colors.transparent,
-            title: Text(
-              'Your bank. Safer.',
-              style: TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.w100,
-              ),
-            ),
+    var children = <Widget> [
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text('Be slow to promise and quick to perform.',
+          style: TextStyle(
+            fontSize: 48,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
-          BankCardList(),
-        ],
+        ),
+      ),
+    ] ;
+    return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(onPressed: () {
+
+      },
+          icon: Icon(Icons.airplanemode_active), label: Text('Add more')),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/gray-sage-dark-marble-background.jpg'),
+          fit: BoxFit.cover,
+          ),
+        ),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverPadding(
+                padding: EdgeInsets.all(32),
+            ),
+//            SliverAppBar(
+//              backgroundColor: Colors.transparent,
+//              actions: <Widget>[
+//                Padding(
+//                  padding: const EdgeInsets.all(8.0),
+//                  child: MaterialButton(onPressed: () {
+//
+//                  },
+//                    color: Colors.blue,
+//                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+//                    child: Row(
+//                      children: <Widget>[
+//                        Icon(Icons.add, color: Colors.white,),
+//                        Text('Add More'),
+//                      ],
+//                    ),
+//                    elevation: 16,
+//                  ),
+//                ),
+//              ],
+//            ),
+            SliverList(
+              delegate: SliverChildListDelegate(children)
+              ,
+            ),
+            BankCardList(),
+          ],
+        ),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
