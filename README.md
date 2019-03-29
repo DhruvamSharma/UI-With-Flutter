@@ -2,6 +2,8 @@
 
 A new Flutter application.
 
+<img src='https://github.com/DhruvamSharma/UI-With-Flutter/blob/master/docs/state1withstudio.png'>
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
