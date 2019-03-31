@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 class BankCardList extends StatelessWidget {
   final _bookNames = ['Black Coffee', 'Angels and Demons', 'The Big Fours'];
-  final _cardNumbers = ['XXX001233213XX'];
-  final _cardHolder = ['Dhruvam'];
 
   @override
   Widget build(BuildContext context) {
