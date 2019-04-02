@@ -9,20 +9,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+          primarySwatch: Colors.blue,
+          canvasColor: Colors.white,
+          backgroundColor: Colors.white),
+      home: Playlist(),
     );
   }
+}
+
+class Playlist extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+    );
+  }
+
 }
 
 class MyHomePage extends StatelessWidget {
@@ -31,8 +33,74 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return null;
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Container(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Card(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                margin: EdgeInsets.only(top: 50),
+                child: Container(
+                  height: 300,
+                  width: 300,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/sound_wave.jpg'),
+                          fit: BoxFit.cover)),
+                ),
+                elevation: 32,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 32),
+                child: Text(
+                  'Someone Like You',
+                  style: TextStyle(fontSize: 32),
+                ),
+              ),
+              Text(
+                '19, Adele',
+                style: TextStyle(color: Colors.indigo),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 84),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(child: Icon(Icons.shuffle, color: Colors.grey,)),
+                    Expanded(child: Icon(Icons.skip_previous)),
+                    Expanded(
+                      child: Center(
+                        child: Icon(
+                          Icons.play_circle_outline,
+                          color: Colors.black,
+                          size: 54,
+                        ),
+                      ),
+                    ),
+                    Expanded(child: Icon(Icons.skip_next)),
+                    Expanded(child: Icon(Icons.repeat, color: Colors.grey,)),
+                  ],
+                ),
+              ),
+              Container(
+                width: 500,
+                height: 100,
+                decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage('assets/small_sound_wave.jpg'))
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
-
