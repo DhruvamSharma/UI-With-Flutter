@@ -38,7 +38,11 @@ flutter:
 
   assets:
     - assets/sound_wave.jpg
-    - assets/small_sound_wave.jpg
+    - assets/my_waves.jpg
+    - assets/some_one_like_you.jpg
+    - assets/24K_carat_magic.jpg
+    - assets/sunflower.jpg
+    - assets/solo_dance.jpg
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
