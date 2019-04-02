@@ -2,6 +2,10 @@
 
 A new Flutter application.
 
+<img src = "https://github.com/DhruvamSharma/UI-With-Flutter/blob/master/flutter_music_player/docs/music_player_main_screen.png">
+<br>
+<img src = "https://github.com/DhruvamSharma/UI-With-Flutter/blob/master/flutter_music_player/docs/music_player_detailed_screen.png">
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
