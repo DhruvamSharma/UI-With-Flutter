@@ -35,6 +35,17 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/dog3.jpg
+    - assets/dog1.jpg
+    - assets/dog2.jpg
+    - assets/dog4.jpg
+  fonts:
+    - family: NotoSans
+      fonts:
+      - asset: fonts/NotoSans-Regular.ttf
+        weight: 700
+      - asset: fonts/NotoSans-Bold.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
