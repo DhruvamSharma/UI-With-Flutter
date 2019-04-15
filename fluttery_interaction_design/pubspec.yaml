@@ -40,11 +40,12 @@ flutter:
     - assets/dog1.jpg
     - assets/dog2.jpg
     - assets/dog4.jpg
+
+    - assets/gradient.png
   fonts:
     - family: NotoSans
       fonts:
       - asset: fonts/NotoSans-Regular.ttf
-        weight: 700
       - asset: fonts/NotoSans-Bold.ttf
 
   # To add assets to your application, add an assets section, like this:
