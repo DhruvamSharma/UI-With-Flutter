@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/diagnostics.dart';
 import 'dogs_list.dart';
 
 void main() => runApp(MyApp());
@@ -89,54 +90,74 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          centerTitle: true,
-          title: Text("My Pet Stories",
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 24
-            ),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            child: Image.asset('assets/gradient.png'),
           ),
-          actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: CircleAvatar(
-                radius: 14,
-                backgroundImage: AssetImage('assets/dog3.jpg'),
+          Scaffold(
+            //backgroundColor: Colors.white,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(200),
+              child: AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                centerTitle: true,
+                title: Text("My Pet Stories",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24
+                  ),
+                ),
+                actions: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: CircleAvatar(
+                      radius: 14,
+                      backgroundImage: AssetImage('assets/dog3.jpg'),
+                    ),
+                  )
+                ],
+                bottom: TabBar(tabs: <Widget>[
+                  Tab(icon: Icon(Icons.group, color: Colors.grey,), text: 'List',),
+                  Tab(icon: Icon(Icons.repeat, color: Colors.grey,), text: 'Donate',),
+                  Tab(icon: Icon(Icons.repeat, color: Colors.grey,), text: 'Meet',),
+                  Tab(icon: Icon(Icons.repeat, color: Colors.grey,), text: 'Adopt',),
+                ],
+                  indicator: UnderlineTabIndicator(
+                      borderSide: BorderSide(color: color, width: 4.0),
+                      insets: EdgeInsets.fromLTRB(80, 20, 80, 0)
+                  ),
+                  unselectedLabelColor: Colors.grey,
+                  labelStyle: TextStyle(color: Colors.black, fontSize: 16),
+                  labelColor: Colors.black,
+                  unselectedLabelStyle: TextStyle(fontSize: 0),
+                  controller: tabController,
+                ),
               ),
-            )
-          ],
-          bottom: TabBar(tabs: <Widget>[
-            Tab(icon: Icon(Icons.group, color: Colors.grey,), text: 'List',),
-            Tab(icon: Icon(Icons.repeat, color: Colors.grey,), text: 'Donate',),
-            Tab(icon: Icon(Icons.repeat, color: Colors.grey,), text: 'Meet',),
-            Tab(icon: Icon(Icons.repeat, color: Colors.grey,), text: 'Adopt',),
-          ],
-            indicator: UnderlineTabIndicator(
-                borderSide: BorderSide(color: color, width: 4.0),
-                insets: EdgeInsets.fromLTRB(80, 20, 80, 0)
             ),
-            unselectedLabelColor: Colors.grey,
-            labelStyle: TextStyle(color: Colors.black, fontSize: 16),
-            labelColor: Colors.black,
-            unselectedLabelStyle: TextStyle(fontSize: 0),
-            controller: tabController,
+            body: Container(
+              color: Colors.white,
+              child: TabBarView(children: <Widget>[
+                DogsList(),
+                DogsList(),
+                Center(child: Text('my data 2')),
+                Center(child: Text('my data 2')),
+              ],
+                controller: tabController,),
+            ),
           ),
-        ),
-        body: TabBarView(children: <Widget>[
-          DogsList(),
-          DogsList(),
-          Center(child: Text('my data 2')),
-          Center(child: Text('my data 2')),
         ],
-        controller: tabController,),
       ),
     );
   }
 }
 
+
+class CustomAppBar extends AppBar {
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => Size.fromHeight(200);
+}
 
