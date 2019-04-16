@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttery_interaction_design/dog_detail.dart';
 
 final dogs = [
-  DogViewModel(assetImagePath: 'assets/dog2.jpg', dogName: 'Bhow', numberOfLikes: '3,23,457'),
-  DogViewModel(assetImagePath: 'assets/dog1.jpg', dogName: 'Terry', numberOfLikes: '2,41,676'),
-  DogViewModel(assetImagePath: 'assets/dog4.jpg', dogName: 'Shiels', numberOfLikes: '1,87,222'),
-  DogViewModel(assetImagePath: 'assets/dog3.jpg', dogName: 'Tom', numberOfLikes: '8,43,453'),
+  DogViewModel(assetImagePath: 'assets/dog2.jpg', dogName: 'Bhow', numberOfLikes: '3,23,457', qualities: ['caring and cool', 'cool', 'cute'], imageList: ['assets/card_back3.jpg', 'assets/card_back2.png', 'assets/card_back1.jpg']),
+  DogViewModel(assetImagePath: 'assets/dog1.jpg', dogName: 'Terry', numberOfLikes: '2,41,676', qualities: ['caring', 'cool', 'cute'], imageList: ['assets/card_back2.png', 'assets/card_back3.jpg', 'assets/card_back1.jpg']),
+  DogViewModel(assetImagePath: 'assets/dog4.jpg', dogName: 'Shiels', numberOfLikes: '1,87,222', qualities: ['caring', 'cool', 'cute'], imageList: ['assets/card_back1.jpg', 'assets/card_back2.png', 'assets/card_back3.jpg']),
+  DogViewModel(assetImagePath: 'assets/dog3.jpg', dogName: 'Tom', numberOfLikes: '8,43,453', qualities: ['caring', 'cool', 'cute'], imageList: ['assets/card_back1.jpg', 'assets/card_back3.jpg', 'assets/card_back2.png']),
 ];
 
 class DogsList extends StatelessWidget {
@@ -37,7 +37,7 @@ class DogCard extends StatelessWidget {
   DogCard({this.model, this.position});
 
   final textStyle =
-  TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18, fontFamily: 'NotoSans-Regular');
+  TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'NotoSans-Regular');
 
   final double _cardBorderRadius = 16;
   @override
@@ -98,6 +98,8 @@ class DogViewModel {
   final String assetImagePath;
   final String dogName;
   final String numberOfLikes;
+  final List<String> qualities;
+  final List<String> imageList;
 
-  DogViewModel({this.assetImagePath, this.dogName, this.numberOfLikes});
+  DogViewModel({this.assetImagePath, this.dogName, this.numberOfLikes, this.qualities, this.imageList});
 }

@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         primaryIconTheme: IconThemeData(color: Colors.black),
         iconTheme: IconThemeData(color: Colors.black,),
         canvasColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white,
         fontFamily: 'NotoSans'
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -93,10 +94,10 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       child: Stack(
         children: <Widget>[
           Container(
-            child: Image.asset('assets/gradient.png'),
+            child: Image.asset('assets/background.jpg', fit: BoxFit.cover, width: double.infinity, height: 300,),
           ),
           Scaffold(
-            //backgroundColor: Colors.white,
+            backgroundColor: Colors.transparent,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(200),
               child: AppBar(
@@ -105,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                 centerTitle: true,
                 title: Text("My Pet Stories",
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 24
                   ),
@@ -120,25 +121,28 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                   )
                 ],
                 bottom: TabBar(tabs: <Widget>[
-                  Tab(icon: Icon(Icons.group, color: Colors.grey,), text: 'List',),
-                  Tab(icon: Icon(Icons.repeat, color: Colors.grey,), text: 'Donate',),
-                  Tab(icon: Icon(Icons.repeat, color: Colors.grey,), text: 'Meet',),
-                  Tab(icon: Icon(Icons.repeat, color: Colors.grey,), text: 'Adopt',),
+                  Tab(icon: Icon(Icons.group, color: Colors.white,), text: 'List',),
+                  Tab(icon: Icon(Icons.repeat, color: Colors.white,), text: 'Donate',),
+                  Tab(icon: Icon(Icons.repeat, color: Colors.white,), text: 'Meet',),
+                  //Tab(icon: Icon(Icons.repeat, color: Colors.white,), text: 'Adopt',),
                 ],
                   indicator: UnderlineTabIndicator(
                       borderSide: BorderSide(color: color, width: 4.0),
                       insets: EdgeInsets.fromLTRB(80, 20, 80, 0)
                   ),
                   unselectedLabelColor: Colors.grey,
-                  labelStyle: TextStyle(color: Colors.black, fontSize: 16),
-                  labelColor: Colors.black,
+                  labelStyle: TextStyle(color: Colors.white, fontSize: 16),
+                  labelColor: Colors.white,
                   unselectedLabelStyle: TextStyle(fontSize: 0),
                   controller: tabController,
                 ),
               ),
             ),
             body: Container(
-              color: Colors.white,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+                color: Colors.white,
+              ),
               child: TabBarView(children: <Widget>[
                 DogsList(),
                 DogsList(),
@@ -152,12 +156,5 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       ),
     );
   }
-}
-
-
-class CustomAppBar extends AppBar {
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(200);
 }
 
