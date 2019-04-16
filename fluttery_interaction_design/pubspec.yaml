@@ -19,6 +19,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  flutter_swiper : ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -41,7 +42,12 @@ flutter:
     - assets/dog2.jpg
     - assets/dog4.jpg
 
+    - assets/gradient.jpeg
     - assets/gradient.png
+    - assets/background.jpg
+    - assets/card_back3.jpg
+    - assets/card_back2.png
+    - assets/card_back1.jpg
   fonts:
     - family: NotoSans
       fonts:
