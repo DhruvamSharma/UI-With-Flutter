@@ -1,3 +1,4 @@
+import 'package:animator/animator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttery_interaction_design/dog_detail.dart';
 
@@ -16,14 +17,7 @@ class DogsList extends StatelessWidget {
       child: ListView.builder(
         itemCount: 4,
         itemBuilder: (context, position) {
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return DogDetail(dogs[position], position);
-              }));
-            },
-            child: DogCard(model: dogs[position], position: position,),
-          );
+          return DogCard(model: dogs[position], position: position,);
         },
       ),
     );
@@ -58,16 +52,7 @@ class DogCard extends StatelessWidget {
                 margin: EdgeInsets.only(left: 48, top: 32, bottom: 32),
                 elevation: 16,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: Column(
-                  children: <Widget>[
-                    Image(
-                      image: AssetImage(model.assetImagePath),
-                      fit: BoxFit.fill,
-                      height: 200,
-                      width: 400,
-                    ),
-                  ],
-                ),
+                child: AnimatedImage(model, position),
               ),
             ),
           ),
@@ -88,6 +73,56 @@ class DogCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+}
+
+class AnimatedImage extends StatefulWidget {
+  final DogViewModel model;
+  final int position;
+  AnimatedImage(this.model, this.position);
+  @override
+  State<StatefulWidget> createState() {
+    print(model);
+    return AnimatedImageState();
+  }
+}
+
+class AnimatedImageState extends State<AnimatedImage> {
+  double x = 1, y = 1.2;
+  int z = 0;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          x = 1.2;
+          y= 1;
+          z = 200;
+        });
+      },
+      child: Animator(
+        tween: Tween<double>(begin: x, end: y),
+        duration: Duration(milliseconds: z),
+        statusListener: (status, setup) {
+          if(status == AnimationStatus.completed) {
+            setup.controller.stop();
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return DogDetail(widget.model, widget.position);
+            }));
+          }
+        },
+        builder: (anim) => Transform.scale(
+          scale: anim.value,
+          child: Image(
+            image: AssetImage(widget.model.assetImagePath),
+            fit: BoxFit.fill,
+            height: 200,
+            width: 400,
+          ),
+        ),
       ),
     );
   }
