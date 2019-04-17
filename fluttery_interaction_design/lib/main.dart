@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/diagnostics.dart';
+import 'package:fluttery_interaction_design/page_reveal.dart';
 import 'dogs_list.dart';
 
 void main() => runApp(MyApp());
@@ -60,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: 4)
+    tabController = TabController(vsync: this, length: 3)
     ..addListener(() {
       setState(() {
         switch (tabController.index) {
@@ -112,11 +113,23 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                   ),
                 ),
                 actions: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: CircleAvatar(
-                      radius: 14,
-                      backgroundImage: AssetImage('assets/dog3.jpg'),
+                  GestureDetector(
+                    onTap: () {
+                      print('here');
+                      setState(() {
+                        PageReveal(revealPercent: 0.5, child: Container(
+                          color: Colors.black,
+                          width: double.infinity,
+                          height: double.infinity,
+                        ));
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: CircleAvatar(
+                        radius: 14,
+                        backgroundImage: AssetImage('assets/dog3.jpg'),
+                      ),
                     ),
                   )
                 ],
@@ -146,7 +159,6 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
               child: TabBarView(children: <Widget>[
                 DogsList(),
                 DogsList(),
-                Center(child: Text('my data 2')),
                 Center(child: Text('my data 2')),
               ],
                 controller: tabController,),

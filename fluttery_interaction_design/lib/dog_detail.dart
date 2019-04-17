@@ -1,12 +1,24 @@
+import 'package:animator/animator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttery_interaction_design/dogs_list.dart';
 
-class DogDetail extends StatelessWidget {
+class DogDetail extends StatefulWidget {
   DogDetail(this.model, this.position);
   final DogViewModel model;
   final int position;
 
+  @override
+  State<StatefulWidget> createState() {
+    return DogDetailState();
+  }
+}
+
+class DogDetailState extends State<DogDetail> {
+  double opacityStart = 0, opacityEnd = 1;
+  Offset translationStart = Offset(0, 30), translationEnd = Offset(0,0);
+  bool backButtonPressed = false;
+  int duration = 1000;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -15,12 +27,12 @@ class DogDetail extends StatelessWidget {
           color: Colors.transparent,
           child: Hero(
             child: Image(
-              image: AssetImage(model.assetImagePath),
+              image: AssetImage(widget.model.assetImagePath),
               height: 300,
               width: double.infinity,
               fit: BoxFit.fill,
             ),
-            tag: 'myHeroWidget$position',
+            tag: 'myHeroWidget${widget.position}',
           ),
         ),
         Padding(
@@ -31,48 +43,99 @@ class DogDetail extends StatelessWidget {
               preferredSize: Size.fromHeight(200),
               child: AppBar(
                 elevation: 0,
+                automaticallyImplyLeading: false,
+                leading: IconButton(
+                    icon: Icon(Icons.arrow_back, color: Colors.white,),
+                    onPressed: () {
+                      setState(() {
+                        double random = opacityStart;
+                        opacityStart = opacityEnd;
+                        opacityEnd = random;
+
+                        Offset randomOffset = translationStart;
+                        translationStart = translationEnd;
+                        translationEnd = randomOffset;
+
+                        duration = 400;
+
+                        backButtonPressed = true;
+                      });
+                    }
+                ),
                 backgroundColor: Colors.transparent,
               ),
             ),
-            body: Container(
+            body: SingleChildScrollView(
+              child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: Colors.white,
+                  color: Colors.white,
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16),),
-                    ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 16,
-                        left: 16,
-                      ),
-                      child: Text(
-                        model.dogName,
-                        style: TextStyle(fontSize: 46, letterSpacing: 1, fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    GradientChips(
-                      model: model,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 48,
-                      ),
-                      child: Swiper(
+                ),
+                child: Animator(
+                  tweenMap: {
+                    'opacity': Tween<double>(begin: opacityStart, end: opacityEnd),
+                    'translation': Tween<Offset>(begin: translationStart, end: translationEnd),
+                  },
+                  duration: Duration(milliseconds: duration),
+                  statusListener: (status, setup) {
+                    if(status == AnimationStatus.completed) {
+                      setup.controller.stop();
+                      if(backButtonPressed) {
+                        Navigator.pop(context);
+                      }
+                    }
+                  },
+                  repeats: 0,
+                  cycles: 0,
+                  builderMap: (Map<String, Animation> anim) => FadeTransition(
+                    opacity: anim['opacity'],
+                    child: Transform.translate(
+                        offset: anim['translation'].value,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 16,
+                                left: 16,
+                              ),
+                              child: Text(
+                                widget.model.dogName,
+                                style: TextStyle(fontSize: 46, letterSpacing: 1, fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 16,
+                                left: 8,
+                              ),
+                              child: GradientChips(
+                                model: widget.model,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 48,
+                              ),
+                              child: Swiper(
 
-                        itemBuilder: (BuildContext context, int index) {
-                          return MyVideosThumbnails(model: model, position: index);
-                        },
-                        itemHeight: 400,
-                        itemCount: model.imageList.length,
-                        itemWidth: 300.0,
-                        layout: SwiperLayout.STACK,
-                      ),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return MyVideosThumbnails(model: widget.model, position: index);
+                                },
+                                itemHeight: 400,
+                                itemCount: widget.model.imageList.length,
+                                itemWidth: 300.0,
+                                layout: SwiperLayout.STACK,
+                              ),
+                            ),
+                          ],
+                        )
                     ),
-                  ],
-                )),
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ],
