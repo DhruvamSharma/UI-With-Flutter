@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/diagnostics.dart';
 import 'package:fluttery_interaction_design/page_reveal.dart';
 import 'dogs_list.dart';
+import 'package:animator/animator.dart';
 
 void main() => runApp(MyApp());
 
@@ -58,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
 
   TabController tabController;
   MaterialColor color = Colors.teal;
+  bool firstIndex = true, secondIndex, thirdIndex;
   @override
   void initState() {
     super.initState();
@@ -67,15 +68,21 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         switch (tabController.index) {
           case 0:
             color = Colors.teal;
+            firstIndex = true;
+            secondIndex = false;
+            thirdIndex = false;
             break;
           case 1:
             color = Colors.pink;
+            firstIndex = false;
+            secondIndex = true;
+            thirdIndex = false;
             break;
           case 2:
             color = Colors.blue;
-            break;
-          case 3:
-            color = Colors.amber;
+            firstIndex = false;
+            secondIndex = false;
+            thirdIndex = true;
             break;
         }
       });
@@ -115,7 +122,6 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                 actions: <Widget>[
                   GestureDetector(
                     onTap: () {
-                      print('here');
                       setState(() {
                         PageReveal(revealPercent: 0.5, child: Container(
                           color: Colors.black,
@@ -134,9 +140,45 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                   )
                 ],
                 bottom: TabBar(tabs: <Widget>[
-                  Tab(icon: Icon(Icons.group, color: Colors.white,), text: 'List',),
-                  Tab(icon: Icon(Icons.repeat, color: Colors.white,), text: 'Donate',),
-                  Tab(icon: Icon(Icons.repeat, color: Colors.white,), text: 'Meet',),
+                  Tab(icon: Icon(firstIndex == true ? null : Icons.group, color: Colors.white,), child: Animator(
+                    tween: Tween<Offset>(begin: Offset(0, 0), end: Offset(0, -20)),
+                    duration: Duration(milliseconds: 1000),
+                    statusListener: (status, setup) {
+                      if(status == AnimationStatus.completed) {
+                        setup.controller.stop();
+                      }
+                    },
+                    builder: (anim) => Transform.translate(
+                      offset: anim.value,
+                      child: Text('Up', style: TextStyle(fontWeight: FontWeight.bold),),
+                    ),
+                  )),
+                  Tab(icon: Icon(secondIndex == true ? null : Icons.group, color: Colors.white,), child: Animator(
+                    tween: Tween<Offset>(begin: Offset(0, 0), end: Offset(0, -20)),
+                    duration: Duration(milliseconds: 1000),
+                    statusListener: (status, setup) {
+                      if(status == AnimationStatus.completed) {
+                        setup.controller.stop();
+                      }
+                    },
+                    builder: (anim) => Transform.translate(
+                      offset: anim.value,
+                      child: Text('Up', style: TextStyle(fontWeight: FontWeight.bold),),
+                    ),
+                  )),
+                  Tab(icon: Icon(thirdIndex == true ? null : Icons.group, color: Colors.white,), child: Animator(
+                    tween: Tween<Offset>(begin: Offset(0, 0), end: Offset(0, -20)),
+                    duration: Duration(milliseconds: 1000),
+                    statusListener: (status, setup) {
+                      if(status == AnimationStatus.completed) {
+                        setup.controller.stop();
+                      }
+                    },
+                    builder: (anim) => Transform.translate(
+                      offset: anim.value,
+                      child: Text('Up', style: TextStyle(fontWeight: FontWeight.bold),),
+                    ),
+                  )),
                   //Tab(icon: Icon(Icons.repeat, color: Colors.white,), text: 'Adopt',),
                 ],
                   indicator: UnderlineTabIndicator(
@@ -157,11 +199,12 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                 color: Colors.white,
               ),
               child: TabBarView(children: <Widget>[
-                DogsList(),
-                DogsList(),
+                DogList(),
+                DogList(),
                 Center(child: Text('my data 2')),
               ],
-                controller: tabController,),
+                controller: tabController,
+              ),
             ),
           ),
         ],
