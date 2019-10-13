@@ -16,7 +16,6 @@ class _SecondScreenState extends State<SecondScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -28,7 +27,6 @@ class _SecondScreenState extends State<SecondScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 

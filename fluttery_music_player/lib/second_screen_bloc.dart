@@ -19,6 +19,10 @@ class SecondScreenBloc {
     _visibilityStreamController.sink.add(false);
   }
 
+  void destroy(){
+    _visibilityStreamController.close();
+  }
+
 }
 
 var secondBloc = SecondScreenBloc();
