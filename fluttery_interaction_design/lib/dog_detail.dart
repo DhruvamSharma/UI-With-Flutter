@@ -70,7 +70,10 @@ class DogDetailState extends State<DogDetail> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16),),
+                  borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                   topRight: Radius.circular(16),
+                   ),
                 ),
                 child: Animator(
                   tweenMap: {
@@ -249,27 +252,3 @@ class GradientChips extends StatelessWidget {
     );
   }
 }
-
-//class MyAnimatedContainer extends StatefulWidget {
-//  @override
-//  State<StatefulWidget> createState() => MyAnimatedContainerState();
-//
-//}
-//
-//class MyAnimatedContainerState extends State<MyAnimatedContainer> with TickerProviderStateMixin<MyAnimatedContainer> {
-//  AnimationController controller;
-//
-//  @override
-//  void initState() {
-//    super.initState();
-//    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 2000));
-//  }
-//  @override
-//  Widget build(BuildContext context) {
-//    // TODO: implement build
-//    return PositionedTransition(
-//        rect: Animation<>,
-//        child: Text('My world'),
-//    );
-//  }
-//}
