@@ -3,18 +3,19 @@ import 'package:flutter/material.dart';
 class BankCardList extends StatelessWidget {
   final _bookNames = ['Black Coffee', 'Angels and Demons', 'The Big Fours'];
 
+  final _textStyle = TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+        fontSize: 24,
+      );
+
+  final _textStyleSubtitle = TextStyle(
+        color: Colors.black54,
+        fontSize: 16,
+      );
+
   @override
   Widget build(BuildContext context) {
-    final _textStyle = TextStyle(
-      color: Colors.black,
-      fontWeight: FontWeight.bold,
-      fontSize: 24,
-    );
-
-    final _textStyleSubtitle = TextStyle(
-      color: Colors.black54,
-      fontSize: 16,
-    );
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, i) {
@@ -23,7 +24,9 @@ class BankCardList extends StatelessWidget {
               Card(
                 margin: EdgeInsets.all(8),
                 shape:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    ),
                 color: Colors.white,
                 elevation: 0,
                 child: Padding(
