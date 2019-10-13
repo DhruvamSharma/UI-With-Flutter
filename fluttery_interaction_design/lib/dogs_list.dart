@@ -128,7 +128,6 @@ class DogCard extends StatefulWidget {
   DogCard({this.model, this.position, this.startOffset, this.endOffset});
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return DogCardState();
   }
 }
@@ -141,7 +140,6 @@ class DogCardState extends State<DogCard> {
   final double _cardBorderRadius = 16;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       child: Column(
         children: <Widget>[

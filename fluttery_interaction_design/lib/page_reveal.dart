@@ -10,7 +10,6 @@ class PageReveal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ClipOval(
       child: child,
       clipper: MyCustomClipper(revealPercent),
