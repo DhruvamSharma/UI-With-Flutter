@@ -16,7 +16,6 @@ class _SecondScreenState extends State<SecondScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -82,30 +81,36 @@ class _SecondScreenState extends State<SecondScreen> {
                   ),
                 ),
               ),
-              SliverList(
-                delegate: SliverChildListDelegate(_sliverChildren()),
-              ),
+              SongListContainer(),
             ],
           ),
-
-        Align(
-          alignment: Alignment.bottomRight,
-          child: StreamBuilder<bool>(
-              stream: secondBloc.visibilityStream,
-              builder: (context, snapshot) {
-
-                if (snapshot.hasData) {
-                  return Visibility(
-                    visible: snapshot.data,
-                    child: BottomPlayerHelper(),
-                  );
-                } else {
-                  return Container();
-                }
-              }),
-        ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: StreamBuilder<bool>(
+                stream: secondBloc.visibilityStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Visibility(
+                      visible: snapshot.data,
+                      child: BottomPlayerHelper(),
+                    );
+                  } else {
+                    return Container();
+                  }
+                }),
+          ),
         ],
       ),
+    );
+  }
+
+}
+
+class SongListContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SliverList(
+      delegate: SliverChildListDelegate(_sliverChildren()),
     );
   }
 
@@ -113,29 +118,28 @@ class _SecondScreenState extends State<SecondScreen> {
     print('here');
     return [
       Animator(
-        cycles: 1,
-        repeats: 0,
         tween: Tween<Offset>(begin: Offset(0, 500), end: Offset(0, 0)),
         duration: Duration(milliseconds: 300),
         builder: (anim) => Transform.translate(
-              offset: anim.value,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(100))),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: BottomList(),
-                      )),
-                ],
-              ),
-            ),
+          offset: anim.value,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                      BorderRadius.only(topLeft: Radius.circular(100))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: BottomList(),
+                  )),
+            ],
+          ),
+        ),
       ),
     ];
   }
 }
+

@@ -60,7 +60,8 @@ class _BottomListState extends State<BottomList> {
                   onTap: () {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
-                      return PlayerScreen(position: i, musicInfo: _musicList[i]);
+                      return PlayerScreen(
+                          position: i, musicInfo: _musicList[i]);
                     }));
                   },
                   leading: GestureDetector(
