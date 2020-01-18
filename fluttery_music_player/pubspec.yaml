@@ -26,6 +26,7 @@ dependencies:
   animator: ^0.1.2
   rxdart:
   percent_indicator: "^2.1.0"
+  audioplayers: 0.10.1
 
 dev_dependencies:
   flutter_test:
@@ -44,6 +45,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/headphones.png
+    - assets/audios/music.mp3
 
   # To add assets to your application, add an assets section, like this:
   # assets:

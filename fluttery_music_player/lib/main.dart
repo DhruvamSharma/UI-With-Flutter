@@ -34,39 +34,10 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with RouteAware {
-  final GlobalKey _globalKey = GlobalKey();
-  bool _bottomButtonVisible = true;
-  PageController _pageController;
-  int _initialPage = 0;
+class _MyHomePageState extends State<MyHomePage> {
 
-  @override
-  didChangeDependencies() {
-    super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context));
-  }
 
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(
-        initialPage: _initialPage, viewportFraction: 0.6, keepPage: true);
-  }
 
-  @override
-  dispose() {
-    super.dispose();
-    routeObserver.unsubscribe(this);
-    _pageController.dispose();
-  }
-
-  @override
-  didPopNext() {
-    // Show back the FAB on transition back ended
-    Timer(duration, () {
-      setState(() => _bottomButtonVisible = true);
-    });
-  }
 
   // Image.asset('assets/images/headphones.png', height: 300, fit: BoxFit.cover,),
 
@@ -102,45 +73,7 @@ class _MyHomePageState extends State<MyHomePage> with RouteAware {
                       ),
                     ],
                   ),
-                  Container(
-                    key: _globalKey,
-                    margin: EdgeInsets.all(16),
-                    height: 300,
-                    child: PageView.builder(
-                      scrollDirection: Axis.horizontal,
-                      pageSnapping: true,
-                      itemBuilder: (context, index) {
-                        return AnimatedBuilder(
-                          animation: _pageController,
-                          builder: (context, child) {
-                            double value = 1.0;
-                            if (_pageController.position.haveDimensions) {
-                              value = _pageController.page - index;
-                              value = (1 - (value.abs() * .5)).clamp(0.0, 1.0);
-                            }
-
-                            return Center(
-                              child: SizedBox(
-                                height: Curves.easeOut.transform(value) * 300,
-                                width: Curves.easeOut.transform(value) * 250,
-                                child: child,
-                              ),
-                            );
-                          },
-                          child: Visibility(
-                              visible: _bottomButtonVisible,
-                              child: _buildSlideCard()),
-                        );
-                      },
-                      itemCount: 5,
-                      controller: _pageController,
-                      onPageChanged: (value) {
-                        setState(() {
-                          _initialPage = value;
-                        });
-                      },
-                    ),
-                  ),
+                  AnimatingAlbumContainer(),
                   Padding(
                     padding: const EdgeInsets.only(left: 32),
                     child: Text(
@@ -166,6 +99,91 @@ class _MyHomePageState extends State<MyHomePage> with RouteAware {
                 fit: BoxFit.cover,
               )),
         ],
+      ),
+    );
+  }
+
+
+}
+
+class AnimatingAlbumContainer extends StatefulWidget {
+  @override
+  _AnimatingAlbumContainerState createState() => _AnimatingAlbumContainerState();
+}
+
+class _AnimatingAlbumContainerState extends State<AnimatingAlbumContainer> with RouteAware{
+  final GlobalKey _globalKey = GlobalKey();
+  bool _bottomButtonVisible = true;
+  PageController _pageController;
+  int _initialPage = 0;
+
+  @override
+  didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(
+        initialPage: _initialPage, viewportFraction: 0.6, keepPage: true);
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    routeObserver.unsubscribe(this);
+    _pageController.dispose();
+  }
+
+  @override
+  didPopNext() {
+    // Show back the FAB on transition back ended
+    Timer(duration, () {
+      setState(() => _bottomButtonVisible = true);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: _globalKey,
+      margin: EdgeInsets.all(16),
+      height: 300,
+      child: PageView.builder(
+        scrollDirection: Axis.horizontal,
+        pageSnapping: true,
+        itemBuilder: (context, index) {
+          return AnimatedBuilder(
+            animation: _pageController,
+            builder: (context, child) {
+              double value = 1.0;
+              if (_pageController.position.haveDimensions) {
+                value = _pageController.page - index;
+                value = (1 - (value.abs() * .5)).clamp(0.0, 1.0);
+              }
+
+              return Center(
+                child: SizedBox(
+                  height: Curves.easeOut.transform(value) * 300,
+                  width: Curves.easeOut.transform(value) * 250,
+                  child: child,
+                ),
+              );
+            },
+            child: Visibility(
+                visible: _bottomButtonVisible,
+                child: _buildSlideCard()),
+          );
+        },
+        itemCount: 5,
+        controller: _pageController,
+        onPageChanged: (value) {
+          setState(() {
+            _initialPage = value;
+          });
+        },
       ),
     );
   }
@@ -203,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> with RouteAware {
     });
 
     final RenderBox containerRenderBox =
-        _globalKey.currentContext.findRenderObject();
+    _globalKey.currentContext.findRenderObject();
     final containerSize = containerRenderBox.size;
     final containerOffset = containerRenderBox.localToGlobal(Offset.zero);
 
@@ -219,11 +237,11 @@ class _MyHomePageState extends State<MyHomePage> with RouteAware {
   }
 
   Widget _buildTransition(
-    Widget page,
-    Animation<double> animation,
-    Size fabSize,
-    Offset fabOffset,
-  ) {
+      Widget page,
+      Animation<double> animation,
+      Size fabSize,
+      Offset fabOffset,
+      ) {
     if (animation.value == 1) return page;
 
     final borderTween = BorderRadiusTween(
@@ -275,3 +293,4 @@ class _MyHomePageState extends State<MyHomePage> with RouteAware {
     );
   }
 }
+
